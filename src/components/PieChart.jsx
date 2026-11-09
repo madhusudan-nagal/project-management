@@ -10,13 +10,13 @@ export default function Chart({ labels, values, colors }) {
         label: "Number of Tasks",
         data: values,
         backgroundColor: colors,
-        borderColor: "#fffff",
+        borderColor: "#ffffff",
         borderWidth: 2,
       },
     ],
   };
   return (
-    <div className="relative h-65 flex flex-row justify-center">
+    <div className="relative h-60 flex flex-row justify-center">
       <Pie data={data} />
     </div>
   );
