@@ -23,7 +23,7 @@ export default function LineChart({ labels, values }) {
   };
 
   return (
-    <div className="relative h-75 flex flex-row justify-center">
+    <div className="relative h-65 flex flex-row justify-center">
       <Bar data={data} />
     </div>
   );
