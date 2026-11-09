@@ -11,21 +11,11 @@ export default function TasksPage() {
       <div className="flex flex-row gap-4 justify-between">
         <SearchBar />
         <div className="flex flex-row gap-2">
-          <Button
-            iconType="add"
-            label="Add"
-            className=" bg-linear-to-r hover:transform-3d to-blue-200 from-blue-300 hover:to-blue-500 hover:from-blue-200 transition-colors duration-600"
-          />
-          <Button
-            iconType="edit"
-            label="Edit"
-            className="bg-linear-to-r hover:transform-3d to-green-200 from-green-300 hover:to-green-400 hover:from-green-200 transition-colors duration-600"
-          />
-          <Button
-            iconType="delete"
-            label="Delete"
-            className="bg-linear-to-r hover:transform-3d to-red-200 from-red-300 hover:to-red-400 hover:from-red-200 transition-colors duration-600"
-          />
+          <Button iconType="add" label="Add Task" />
+
+          <Button iconType="edit" label="Edit Task" />
+
+          <Button iconType="delete" label="Delete" />
         </div>
       </div>
       <div className="mt-4"></div>

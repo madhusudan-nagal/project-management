@@ -2,35 +2,30 @@ import Button from "../components/Button";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
 import data from "../db.json";
+import { useState } from "react";
 
 export default function ProjectPage() {
-  const projects = data.projects;
+  const [search, setSearch] = useState("");
+
+  const filteredPorject = data.projects.filter((project) =>
+    project.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <main>
       <div className="flex flex-row gap-4 justify-between">
-        <SearchBar />
+        <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
         <div className="flex flex-row gap-2">
-          <Button
-            iconType="add"
-            label="Add Project"
-            className=" bg-linear-to-r hover:transform-3d to-blue-200 from-blue-300 hover:to-blue-500 hover:from-blue-200 transition-colors duration-600"
-          />
-          <Button
-            iconType="edit"
-            label="Edit Project"
-            className="bg-linear-to-r hover:transform-3d to-green-200 from-green-300 hover:to-green-400 hover:from-green-200 transition-colors duration-600"
-          />
-          <Button
-            iconType="delete"
-            label="Delete Project"
-            className="bg-linear-to-r hover:transform-3d to-red-200 from-red-300 hover:to-red-400 hover:from-red-200 transition-colors duration-600"
-          />
+          <Button iconType="add" label="Add Project" />
+
+          <Button iconType="edit" label="Edit Project" />
+
+          <Button iconType="delete" label="Delete" />
         </div>
       </div>
       <div className="mt-4"></div>
       <Table
-        data={projects}
+        data={filteredPorject}
         columns={[
           { key: "name", title: "Project" },
           { key: "description", title: "Description" },
