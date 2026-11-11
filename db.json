@@ -2,25 +2,14 @@
   "projects": [
     {
       "id": "1",
-      "name": "Website Redesign",
+      "name": "Website Redesign Updated",
       "description": "Refresh the company website with a new look",
       "owner": "Alex",
       "priority": "High",
-      "status": "In Progress",
+      "status": "Completed",
       "progress": 60,
       "startDate": "2026-09-01",
       "dueDate": "2026-12-15"
-    },
-    {
-      "id": "2",
-      "name": "Mobile App",
-      "description": "Build the first version of the iOS and Android app",
-      "owner": "Priya",
-      "priority": "High",
-      "status": "Planned",
-      "progress": 0,
-      "startDate": "2026-12-01",
-      "dueDate": "2027-01-20"
     },
     {
       "id": "3",
@@ -109,6 +98,15 @@
       "progress": 30,
       "startDate": "2026-10-01",
       "dueDate": "2026-12-20"
+    },
+    {
+      "name": "Sample project1",
+      "description": "this is for testing purpose",
+      "status": "In Progress",
+      "dueDate": "2026-11-12",
+      "priority": "High",
+      "progress": 0,
+      "id": "nEAlnAtubwk"
     }
   ],
   "tasks": [
@@ -128,7 +126,7 @@
       "id": "2",
       "title": "Set up login screen",
       "description": "Email and password login UI",
-      "projectId": "2",
+      "projectId": null,
       "assignee": "Priya",
       "status": "Planned",
       "priority": "Medium",
@@ -232,5 +230,6 @@
       "createdAt": "2026-10-30",
       "dueDate": "2026-11-25"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
