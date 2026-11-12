@@ -1,32 +1,39 @@
-import seed from "../../db.json"; // starting data (sirf pehli baar use hota hai)
+import seed from "../../db.json"; 
 
-// localStorage
-const read = (name) =>
-  JSON.parse(localStorage.getItem(name)) || seed[name] || [];
+// Get a list from localStorage 
+function read(name) {
+  const saved = localStorage.getItem(name);
+  if (saved) return JSON.parse(saved);
+  return seed[name] || [];
+}
 
-const write = (name, list) => localStorage.setItem(name, JSON.stringify(list));
+// Save a list into localStorage
+function write(name, list) {
+  localStorage.setItem(name, JSON.stringify(list));
+}
 
-// READ: newest record sabse upar
-export const getData = async (path) =>
-  [...read(path)].sort((a, b) =>
-    (b.createdAt || "").localeCompare(a.createdAt || ""),
-  );
+//READ
+export async function getData(name) {
+  return read(name);
+}
 
-// CREATE / UPDATE / DELETE
-export const sendData = async (path, method, body) => {
-  const [name, id] = path.split("/"); // "projects/5" → ["projects", "5"]
-  const list = read(name);
+// CREATE, UPDATE, DELETE
+export async function sendData(path, method, body) {
+  const [name, id] = path.split("/"); 
+  let list = read(name);
 
-  if (method === "POST")
-    write(name, [...list, { ...body, id: Date.now().toString() }]);
-  if (method === "PATCH")
-    write(
-      name,
-      list.map((i) => (String(i.id) === id ? { ...i, ...body } : i)),
-    );
-  if (method === "DELETE")
-    write(
-      name,
-      list.filter((i) => String(i.id) !== id),
-    );
-};
+  if (method === "POST") {
+    const newItem = { ...body, id: crypto.randomUUID() };
+    list = [newItem, ...list]; 
+  }
+
+  if (method === "PATCH") {
+    list = list.map((item) => (String(item.id) === id ? { ...item, ...body } : item));
+  }
+
+  if (method === "DELETE") {
+    list = list.filter((item) => String(item.id) !== id);
+  }
+
+  write(name, list);
+}

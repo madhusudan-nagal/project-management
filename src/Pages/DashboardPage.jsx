@@ -1,46 +1,65 @@
 import Cards from "../components/Cards";
 import PieChart from "../components/PieChart";
-import LineChart from "../components/BarChart";
+import BarChart from "../components/BarChart";
 import { IoFolderSharp, IoClipboardSharp, IoTime } from "react-icons/io5";
 import { getData } from "../utils/api";
 import { useState, useEffect } from "react";
 
-const count = (list, status) =>
-  list.filter((item) => item.status === status).length;
-
-const formatDate = (d) =>
-  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+// date format ----  changes "2026-11-20" into "20 Nov"
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  });
 
 export default function DashboardPage() {
+ 
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
 
+ 
   useEffect(() => {
-    getData("tasks")
-      .then(setTasks)
-      .catch(() => alert("Could not load data."));
+    getData("tasks").then(setTasks);
     getData("projects").then(setProjects);
   }, []);
 
-  const completedTasks = count(tasks, "Completed");
-  const inProgressTasks = count(tasks, "In Progress");
-  const plannedTasks = count(tasks, "Planned");
+  //projects
+  const totalProjects = projects.length;
+  const completedProjects = projects.filter(
+    (p) => p.status === "Completed",
+  ).length;
+  const inProgressProjects = projects.filter(
+    (p) => p.status === "In Progress",
+  ).length;
 
-  // pending = not completed, nearest due date first
+ //task
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((t) => t.status === "Completed").length;
+  const inProgressTasks = tasks.filter(
+    (t) => t.status === "In Progress",
+  ).length;
+  const plannedTasks = tasks.filter((t) => t.status === "Planned").length;
+
+  
   const pendingTasks = tasks
     .filter((t) => t.status !== "Completed")
     .sort((a, b) => (a.dueDate || "").localeCompare(b.dueDate || ""));
   const nextDue = pendingTasks[0];
 
+
+  const projectNames = projects.map((p) => p.name);
+  const projectProgress = projects.map((p) => p.progress);
+
+ 
   return (
     <div className="grid grid-cols-3 grid-rows-[auto_1fr] gap-4 h-full overflow-hidden">
       <Cards
         title="Total Projects"
         icon={<IoFolderSharp />}
-        description={`${count(projects, "In Progress")} in progress · ${count(projects, "Completed")} completed`}
+        description={`${inProgressProjects} in progress · ${completedProjects} completed`}
         className="bg-linear-to-r text-white from-blue-500 to-blue-300"
       >
-        <p className="text-3xl font-bold">{projects.length}</p>
+        <p className="text-3xl font-bold">{totalProjects}</p>
       </Cards>
 
       <Cards
@@ -49,7 +68,7 @@ export default function DashboardPage() {
         description={`${inProgressTasks} in progress · ${completedTasks} completed`}
         className="bg-linear-to-r text-white from-green-500 to-green-300"
       >
-        <p className="text-3xl font-bold">{tasks.length}</p>
+        <p className="text-3xl font-bold">{totalTasks}</p>
       </Cards>
 
       <Cards
@@ -68,17 +87,17 @@ export default function DashboardPage() {
         )}
       </Cards>
 
-      <Cards title="Weekly Chart" className="bg-white col-span-2 min-h-0">
-        <LineChart
-          labels={projects.map((p) => p.name)}
-          values={projects.map((p) => p.progress)}
+      <Cards title="Project Progress" className="bg-white col-span-2 min-h-0">
+        <BarChart
+          labels={projectNames}
+          values={projectProgress}
           colors={["#facc15", "#4ade80", "#60a5fa"]}
         />
       </Cards>
 
       <Cards title="Task Distribution" className="bg-white col-span-1 min-h-0">
         <PieChart
-          labels={STATUS_LABELS}
+          labels={["Completed", "In Progress", "Planned"]}
           values={[completedTasks, inProgressTasks, plannedTasks]}
           colors={["#65ae95", "#ffc163", "#60a5fa"]}
         />
@@ -86,5 +105,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-const STATUS_LABELS = ["Completed", "In Progress", "Planned"];

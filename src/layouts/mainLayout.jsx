@@ -6,44 +6,52 @@ import {
 } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router";
 
-const IconsCss =
-  "group relative flex items-center justify-center h-14 w-14 rounded-[17.5px] text-[#6a778e] transition-all duration-250 ease-in-out hover:bg-blue-400 hover:text-white active:scale-90";
+
+const links = [
+  { to: "/", label: "Dashboard", icon: <IoBarChart /> },
+  { to: "/projects", label: "Projects", icon: <IoFolder /> },
+  { to: "/tasks", label: "Tasks", icon: <IoFileTrayFull /> },
+];
+
+const iconCss =
+  "group relative flex items-center justify-center h-14 w-14 rounded-2xl text-[#6a778e] transition-all hover:bg-blue-400 hover:text-white active:scale-90";
 
 const activeCss = "bg-blue-600 text-white shadow-md";
 
 const labelCss =
-  "absolute left-full ml-4 z-10 -translate-x-12 opacity-0 pointer-events-none whitespace-nowrap rounded-[17.5px] bg-white p-3 text-sm text-blue-700 shadow-md transition-all duration-250 group-hover:opacity-100 group-hover:translate-x-0";
+  "absolute left-full ml-4 z-10 -translate-x-12 opacity-0 pointer-events-none whitespace-nowrap rounded-2xl bg-white p-3 text-sm text-blue-700 shadow-md transition-all group-hover:opacity-100 group-hover:translate-x-0";
 
-const linkClass = ({ isActive }) => `${IconsCss} ${isActive ? activeCss : ""}`;
+// NavLink tells us if the link is active (the current page)
+const linkClass = ({ isActive }) => `${iconCss} ${isActive ? activeCss : ""}`;
 
 export default function MainLayout() {
   return (
-    <div className="h-screen flex flex-col p-6 gap-2 bg-gray-100 overflow-hidden">
-      <nav className="shrink-0 p-4 bg-linear-to-r from-[#406ff3] to-[#7090ea] rounded-2xl flex items-center justify-between">
-        <div className="text-white font-bold font-sans text-xl">
+    <div className="h-screen flex flex-col gap-2 p-6 bg-gray-100 overflow-hidden">
+      {/* Top navbar */}
+      <nav className="p-4 rounded-2xl bg-linear-to-r from-[#406ff3] to-[#7090ea]">
+        <h1 className="text-xl font-bold text-white">
           <IoLayers className="inline-block mr-2 text-4xl" />
           Project Management
-        </div>
+        </h1>
       </nav>
 
-      <div className="flex-1 min-h-0 flex flex-row gap-2">
-        <div className="w-1/12 rounded-2xl flex flex-col gap-6 p-6 text-2xl bg-white border-2 border-gray-300">
-          <NavLink to="/" end className={linkClass}>
-            <IoBarChart />
-            <span className={labelCss}>Dashboard</span>
-          </NavLink>
+      <div className="flex-1 min-h-0 flex gap-2">
+       
+        <aside className="w-1/12 flex flex-col gap-6 p-6 text-2xl bg-white border-2 border-gray-300 rounded-2xl">
+          {links.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.to === "/"}
+              className={linkClass}
+            >
+              {link.icon}
+              <span className={labelCss}>{link.label}</span>
+            </NavLink>
+          ))}
+        </aside>
 
-          <NavLink to="/projects" className={linkClass}>
-            <IoFolder />
-            <span className={labelCss}>Projects</span>
-          </NavLink>
-
-          <NavLink to="/tasks" className={linkClass}>
-            <IoFileTrayFull />
-            <span className={labelCss}>Tasks</span>
-          </NavLink>
-        </div>
-
+      
         <main className="w-11/12 p-4 bg-white border-2 border-gray-300 rounded-2xl overflow-hidden">
           <Outlet />
         </main>
