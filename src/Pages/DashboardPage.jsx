@@ -5,7 +5,6 @@ import { IoFolderSharp, IoClipboardSharp, IoTime } from "react-icons/io5";
 import { getData } from "../utils/api";
 import { useState, useEffect } from "react";
 
-// how many items in a list have this status
 const count = (list, status) =>
   list.filter((item) => item.status === status).length;
 
@@ -19,7 +18,7 @@ export default function DashboardPage() {
   useEffect(() => {
     getData("tasks")
       .then(setTasks)
-      .catch(() => alert("Could not load data. Is json-server running?"));
+      .catch(() => alert("Could not load data."));
     getData("projects").then(setProjects);
   }, []);
 

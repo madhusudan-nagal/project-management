@@ -14,7 +14,7 @@
     {
       "id": "3",
       "name": "Marketing Dashboard",
-      "description": "Charts for campaign performance",
+      "description": "updating the record",
       "owner": "Sam",
       "priority": "Medium",
       "status": "Completed",
@@ -87,26 +87,6 @@
       "progress": 100,
       "startDate": "2026-07-01",
       "dueDate": "2026-10-12"
-    },
-    {
-      "id": "10",
-      "name": "Support Ticket System",
-      "description": "Manage customer support requests",
-      "owner": "John",
-      "priority": "High",
-      "status": "In Progress",
-      "progress": 30,
-      "startDate": "2026-10-01",
-      "dueDate": "2026-12-20"
-    },
-    {
-      "name": "Sample project1",
-      "description": "this is for testing purpose",
-      "status": "In Progress",
-      "dueDate": "2026-11-12",
-      "priority": "High",
-      "progress": 0,
-      "id": "nEAlnAtubwk"
     }
   ],
   "tasks": [
@@ -222,13 +202,31 @@
       "id": "10",
       "title": "Set up ticket categories",
       "description": "Billing, technical and general",
-      "projectId": "10",
+      "projectId": null,
       "assignee": "John",
       "status": "In Progress",
       "priority": "High",
       "estimatedHours": 3,
       "createdAt": "2026-10-30",
       "dueDate": "2026-11-25"
+    },
+    {
+      "title": "Sampel Task 1",
+      "projectId": null,
+      "status": "In Progress",
+      "dueDate": "2026-11-18",
+      "priority": "Medium",
+      "createdAt": "2026-11-11T13:01:06.297Z",
+      "id": "3fI8uLefu2I"
+    },
+    {
+      "title": "Sample tast 3",
+      "projectId": "1",
+      "status": "In Progress",
+      "dueDate": "2026-11-19",
+      "priority": "Medium",
+      "createdAt": "2026-11-11T13:46:50.214Z",
+      "id": "J6CpOekJK_E"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
