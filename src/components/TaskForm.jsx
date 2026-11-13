@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const inputCss = "w-full px-3 py-2 text-sm border border-gray-300 rounded-xl";
+const today = new Date().toLocaleDateString("en-CA");
 
 export default function TaskForm({ task, projects, onSave, onClose }) {
   const [title, setTitle] = useState(task?.title || "");
@@ -62,6 +63,7 @@ export default function TaskForm({ task, projects, onSave, onClose }) {
         <label className="text-xs font-semibold">Due Date</label>
         <input
           type="date"
+          min = {today}
           className={inputCss}
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}

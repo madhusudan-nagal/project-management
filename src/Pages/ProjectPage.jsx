@@ -12,17 +12,25 @@ import {
 import { getData, sendData } from "../utils/api";
 import { useState, useEffect } from "react";
 
-
-
-
 const columns = [
   { key: "name", title: "Project", width: "20%" },
   { key: "description", title: "Description", width: "30%" },
   { key: "dueDate", title: "Due date", width: "15%" },
-  { key: "status", title: "Status", width: "15%", className: statusStyle, filterOptions: STATUS },
-  { key: "priority", title: "Priority", width: "12%", className: priorityStyle, filterOptions: PRIORITY },
+  {
+    key: "status",
+    title: "Status",
+    width: "15%",
+    className: statusStyle,
+    filterOptions: STATUS,
+  },
+  {
+    key: "priority",
+    title: "Priority",
+    width: "12%",
+    className: priorityStyle,
+    filterOptions: PRIORITY,
+  },
 ];
-
 
 export default function ProjectPage() {
   const [projects, setProjects] = useState([]);
@@ -35,7 +43,6 @@ export default function ProjectPage() {
   // READ
   const loadProjects = () => {
     getData("projects").then(setProjects);
-    console.log("teesting");  
   };
 
   useEffect(() => {

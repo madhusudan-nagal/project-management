@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 const inputCss = "w-full px-3 py-2 text-sm border border-gray-300 rounded-xl";
+// today's date as "YYYY-MM-DD", in the user's own time zone
+const today = new Date().toLocaleDateString("en-CA");
 
 export default function ProjectForm({ project, onSave, onClose }) {
   const [name, setName] = useState(project?.name || "");
@@ -53,6 +55,7 @@ export default function ProjectForm({ project, onSave, onClose }) {
         <label className="text-xs font-semibold">Due Date</label>
         <input
           type="date"
+          min={today}
           className={inputCss}
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}

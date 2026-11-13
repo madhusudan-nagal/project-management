@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoPencil, IoTrash } from "react-icons/io5";
+import { Tooltip } from "react-tooltip";
 
 const headerCss =
   "sticky top-0 z-10 px-4 py-2 text-left text-xs text-gray-700 bg-gray-200 font-semibold";
@@ -23,92 +24,105 @@ export default function Table({ data, columns, onEdit, onDelete }) {
   });
 
   return (
-    <div className="max-h-112.5 overflow-auto mt-4 rounded-2xl border border-gray-300 shadow-md">
-      <table className="w-full min-w-180 table-fixed text-left text-gray-700">
-        {/* ---------- Header: column titles and filters ---------- */}
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th
-                key={column.key}
-                className={headerCss}
-                style={{ width: column.width }}
-              >
-                {column.filterOptions ? (
-                  <select
-                    value={filters[column.key] || ""}
-                    onChange={(e) => handleFilter(column.key, e.target.value)}
-                    className="bg-transparent text-xs font-semibold cursor-pointer focus:outline-none"
-                  >
-                    <option value="">{column.title}: All</option>
-                    {column.filterOptions.map((opt) => (
-                      <option key={opt}>{opt}</option>
-                    ))}
-                  </select>
-                ) : (
-                  column.title
-                )}
-              </th>
-            ))}
-            <th className={headerCss} style={{ width: "90px" }}>
-              Action
-            </th>
-          </tr>
-        </thead>
-
-        {/* ---------- Body: the data rows ---------- */}
-        <tbody>
-          {filteredData.length === 0 && (
+    <>
+      <div className="max-h-112.5 overflow-auto mt-4 rounded-2xl border border-gray-300 shadow-md">
+        <table className="w-full min-w-180 table-fixed text-left text-gray-700">
+          {/* ---------- Header: column titles and filters ---------- */}
+          <thead>
             <tr>
-              <td
-                colSpan={columns.length + 1}
-                className="py-6 text-center text-xs text-gray-400"
-              >
-                No results found
-              </td>
-            </tr>
-          )}
-
-          {filteredData.map((row) => (
-            <tr key={row.id}>
-              {/* data cells: one per column */}
               {columns.map((column) => (
-                <td
+                <th
                   key={column.key}
-                  className={cellCss}
-                  title={row[column.key]}
+                  className={headerCss}
+                  style={{ width: column.width }}
                 >
-                  {column.render ? (
-                    column.render(row)
-                  ) : (
-                    <span
-                      className={
-                        column.className
-                          ? column.className(row[column.key])
-                          : ""
-                      }
+                  {column.filterOptions ? (
+                    <select
+                      value={filters[column.key] || ""}
+                      onChange={(e) => handleFilter(column.key, e.target.value)}
+                      className="bg-transparent text-xs font-semibold cursor-pointer focus:outline-none"
                     >
-                      {row[column.key]}
-                    </span>
+                      <option value="">{column.title}: All</option>
+                      {column.filterOptions.map((opt) => (
+                        <option key={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    column.title
                   )}
-                </td>
+                </th>
               ))}
-
-              {/* action cell: one per row */}
-              <td className={cellCss}>
-                <div className="flex gap-3">
-                  <button onClick={() => onEdit(row)}>
-                    <IoPencil className="text-lg text-blue-500 hover:text-blue-700" />
-                  </button>
-                  <button onClick={() => onDelete(row)}>
-                    <IoTrash className="text-lg text-red-500 hover:text-red-700" />
-                  </button>
-                </div>
-              </td>
+              <th className={headerCss} style={{ width: "90px" }}>
+                Action
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+
+          {/* ---------- Body: the data rows ---------- */}
+          <tbody>
+            {filteredData.length === 0 && (
+              <tr>
+                <td
+                  colSpan={columns.length + 1}
+                  className="py-6 text-center text-xs text-gray-400"
+                >
+                  No results found
+                </td>
+              </tr>
+            )}
+
+            {filteredData.map((row) => (
+              <tr key={row.id}>
+                {columns.map((column) => {
+                  // text for the tooltip: empty for custom (render) cells
+                  const tip = column.render ? "" : row[column.key];
+
+                  return (
+                    <td
+                      key={column.key}
+                      className={cellCss}
+                      data-tooltip-id={tip ? "table-tooltip" : undefined}
+                      data-tooltip-content={tip}
+                    >
+                      {column.render ? (
+                        column.render(row)
+                      ) : (
+                        <span
+                          className={
+                            column.className
+                              ? column.className(row[column.key])
+                              : ""
+                          }
+                        >
+                          {row[column.key]}
+                        </span>
+                      )}
+                    </td>
+                  );
+                })}
+
+                {/* action cell: one per row */}
+                <td className={cellCss}>
+                  <div className="flex gap-3">
+                    <button onClick={() => onEdit(row)}>
+                      <IoPencil className="text-lg text-blue-500 hover:text-blue-700" />
+                    </button>
+                    <button onClick={() => onDelete(row)}>
+                      <IoTrash className="text-lg text-red-500 hover:text-red-700" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* one shared tooltip for every cell */}
+      <Tooltip
+        id="table-tooltip"
+        className="z-50 max-w-xs text-xs whitespace-normal wrap-anywhere"
+      />
+    </>
   );
 }

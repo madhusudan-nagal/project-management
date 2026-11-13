@@ -17,9 +17,9 @@ export default function TasksPage() {
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
 
-  const [showForm, setShowForm] = useState(false); // is the form open?
-  const [editTask, setEditTask] = useState(null); // task being edited (null = adding)
-  const [deleteTask, setDeleteTask] = useState(null); // task being deleted
+  const [showForm, setShowForm] = useState(false);
+  const [editTask, setEditTask] = useState(null); 
+  const [deleteTask, setDeleteTask] = useState(null); 
 
   // READ
   const loadData = () => {
