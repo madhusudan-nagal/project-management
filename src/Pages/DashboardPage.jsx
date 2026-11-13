@@ -13,11 +13,9 @@ const formatDate = (date) =>
   });
 
 export default function DashboardPage() {
- 
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
 
- 
   useEffect(() => {
     getData("tasks").then(setTasks);
     getData("projects").then(setProjects);
@@ -32,7 +30,7 @@ export default function DashboardPage() {
     (p) => p.status === "In Progress",
   ).length;
 
- //task
+  //task
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.status === "Completed").length;
   const inProgressTasks = tasks.filter(
@@ -40,19 +38,16 @@ export default function DashboardPage() {
   ).length;
   const plannedTasks = tasks.filter((t) => t.status === "Planned").length;
 
-  
   const pendingTasks = tasks
     .filter((t) => t.status !== "Completed")
     .sort((a, b) => (a.dueDate || "").localeCompare(b.dueDate || ""));
   const nextDue = pendingTasks[0];
 
-
   const projectNames = projects.map((p) => p.name);
   const projectProgress = projects.map((p) => p.progress);
 
- 
-  return (
-    <div className="grid grid-cols-3 grid-rows-[auto_1fr] gap-4 h-full overflow-hidden">
+    return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:h-full md:grid-rows-[auto_1fr] md:overflow-hidden">
       <Cards
         title="Total Projects"
         icon={<IoFolderSharp />}
@@ -74,7 +69,7 @@ export default function DashboardPage() {
       <Cards
         title="Pending Tasks"
         icon={<IoTime />}
-        className="bg-linear-to-r text-white from-amber-500 to-yellow-400"
+        className="sm:col-span-2 md:col-span-1 bg-linear-to-r text-white from-amber-500 to-yellow-400"
       >
         <p className="text-3xl font-bold">{pendingTasks.length}</p>
         <p className="text-sm opacity-80">
@@ -87,7 +82,7 @@ export default function DashboardPage() {
         )}
       </Cards>
 
-      <Cards title="Project Progress" className="bg-white col-span-2 min-h-0">
+      <Cards title="Project Progress" className="bg-white sm:col-span-2 min-h-0">
         <BarChart
           labels={projectNames}
           values={projectProgress}
@@ -95,7 +90,7 @@ export default function DashboardPage() {
         />
       </Cards>
 
-      <Cards title="Task Distribution" className="bg-white col-span-1 min-h-0">
+      <Cards title="Task Distribution" className="bg-white sm:col-span-2 md:col-span-1 min-h-0">
         <PieChart
           labels={["Completed", "In Progress", "Planned"]}
           values={[completedTasks, inProgressTasks, plannedTasks]}

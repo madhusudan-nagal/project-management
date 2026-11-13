@@ -1,10 +1,9 @@
-import seed from "../../db.json"; 
 
 // Get a list from localStorage 
 function read(name) {
   const saved = localStorage.getItem(name);
   if (saved) return JSON.parse(saved);
-  return seed[name] || [];
+ return [];
 }
 
 // Save a list into localStorage
@@ -18,6 +17,8 @@ export async function getData(name) {
 }
 
 // CREATE, UPDATE, DELETE
+
+
 export async function sendData(path, method, body) {
   const [name, id] = path.split("/"); 
   let list = read(name);
