@@ -9,6 +9,8 @@ import {
   STATUS,
   PRIORITY,
 } from "../utils/badgeStyles";
+import { IoGridOutline, IoListOutline } from "react-icons/io5";
+import DataCards from "../components/DataCard";
 import { getData, sendData } from "../utils/api";
 import { useState, useEffect } from "react";
 
@@ -35,6 +37,7 @@ const columns = [
 export default function ProjectPage() {
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
+  const [view, setView] = useState("cards");
 
   const [showForm, setShowForm] = useState(false);
   const [editProject, setEditProject] = useState(null);
@@ -81,19 +84,64 @@ export default function ProjectPage() {
     p.name.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const switchBtn = (active) =>
+    `flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm ${
+      active ? "bg-gray-900 text-white" : "text-gray-600 hover:bg-gray-100"
+    }`;
+
   return (
-    <div>
-      <div className="flex flex-row gap-4 justify-between">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-row gap-4 justify-between items-center">
         <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
-        <Button iconType="add" label="Add Project" onClick={openAdd} />
+        <div className="flex gap-2 items-center">
+          <div className="flex gap-1 p-1 border border-gray-300 rounded-xl">
+            <button
+              type="button"
+              onClick={() => setView("cards")}
+              className={switchBtn(view === "cards")}
+            >
+              <IoGridOutline /> Cards
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setView("table")}
+              className={switchBtn(view === "table")}
+            >
+              <IoListOutline /> Table
+            </button>
+          </div>
+          <Button iconType="add" label="Add Project" onClick={openAdd} />
+        </div>
       </div>
 
-      <Table
-        data={filteredProjects}
-        columns={columns}
-        onEdit={openEdit}
-        onDelete={setDeleteProject}
-      />
+      {view === "cards" ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((project) => (
+            <DataCards
+              key={project.id}
+              title={project.name}
+              description={project.description}
+              onEdit={() => openEdit(project)}
+              onDelete={() => setDeleteProject(project)}
+            >
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>
+                  {project.status} · {project.priority}
+                </span>
+                <span>Due {project.dueDate}</span>
+              </div>
+            </DataCards>
+          ))}
+        </div>
+      ) : (
+        <Table
+          data={filteredProjects}
+          columns={columns}
+          onEdit={openEdit}
+          onDelete={setDeleteProject}
+        />
+      )}
 
       {showForm && (
         <ProjectForm

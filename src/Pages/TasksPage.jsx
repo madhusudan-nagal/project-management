@@ -2,6 +2,12 @@ import Button from "../components/Button";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
 import TaskForm from "../components/TaskForm";
+import DataCards from "../components/DataCard";
+import {
+  IoGridOutline,
+  IoListOutline,
+  IoClipboardSharp,
+} from "react-icons/io5";
 import DeletePopup from "../components/DeletePopup";
 import {
   statusStyle,
@@ -9,6 +15,7 @@ import {
   STATUS,
   PRIORITY,
 } from "../utils/badgeStyles";
+
 import { getData, sendData } from "../utils/api";
 import { useState, useEffect } from "react";
 
@@ -16,6 +23,7 @@ export default function TasksPage() {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
+  const [view, setView] = useState("cards");
 
   const [showForm, setShowForm] = useState(false);
   const [editTask, setEditTask] = useState(null);
@@ -90,19 +98,69 @@ export default function TasksPage() {
     t.title.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const switchBtn = (active) =>
+    `flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm ${
+      active ? "bg-gray-900 text-white" : "text-gray-600 hover:bg-gray-100"
+    }`;
+
   return (
-    <div>
-      <div className="flex flex-row gap-4 justify-between">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
         <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
-        <Button iconType="add" label="Add Task" onClick={openAdd} />
+        <div className="flex gap-2 items-center justify-between sm:justify-end">
+          <div className="flex gap-1 p-1 border border-gray-300 rounded-xl">
+            <button
+              type="button"
+              onClick={() => setView("cards")}
+              className={switchBtn(view === "cards")}
+            >
+              <IoGridOutline /> <span className="hidden sm:inline">Cards</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setView("table")}
+              className={switchBtn(view === "table")}
+            >
+              <IoListOutline /> <span className="hidden sm:inline">Table</span>
+            </button>
+          </div>
+          <Button
+            iconType="add"
+            className="p-6"
+            label="Add Task"
+            onClick={openAdd}
+          />
+        </div>
       </div>
 
-      <Table
-        data={filteredTasks}
-        columns={columns}
-        onEdit={openEdit}
-        onDelete={setDeleteTask}
-      />
+      {/* Cards OR Table */}
+      {view === "cards" ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredTasks.map((task) => (
+            <DataCards
+              key={task.id}
+              title={task.title}
+              description={getProjectName(task.projectId)}
+              onEdit={() => openEdit(task)}
+              onDelete={() => setDeleteTask(task)}
+            >
+              <div className="flex justify-between gap-2 text-xs text-gray-500">
+                <span>
+                  {task.status} · {task.priority}
+                </span>
+                <span>Due {task.dueDate}</span>
+              </div>
+            </DataCards>
+          ))}
+        </div>
+      ) : (
+        <Table
+          data={filteredTasks}
+          columns={columns}
+          onEdit={openEdit}
+          onDelete={setDeleteTask}
+        />
+      )}
 
       {showForm && (
         <TaskForm
