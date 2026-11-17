@@ -23,6 +23,7 @@ const labelCss =
 
 // NavLink tells us if the link is active (the current page)
 const linkClass = ({ isActive }) => `${iconCss} ${isActive ? activeCss : ""}`;
+console.log("this class is active", linkClass);
 
 export default function MainLayout() {
   return (

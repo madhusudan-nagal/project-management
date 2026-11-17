@@ -18,8 +18,8 @@ export default function TasksPage() {
   const [search, setSearch] = useState("");
 
   const [showForm, setShowForm] = useState(false);
-  const [editTask, setEditTask] = useState(null); 
-  const [deleteTask, setDeleteTask] = useState(null); 
+  const [editTask, setEditTask] = useState(null);
+  const [deleteTask, setDeleteTask] = useState(null);
 
   // READ
   const loadData = () => {
@@ -55,7 +55,7 @@ export default function TasksPage() {
   };
 
   // DELETE
-  const handleDelete = async () => {
+  const handlingDelete = async () => {
     await sendData(`tasks/${deleteTask.id}`, "DELETE");
     setDeleteTask(null);
     loadData();
@@ -116,7 +116,7 @@ export default function TasksPage() {
       {deleteTask && (
         <DeletePopup
           name={deleteTask.title}
-          onConfirm={handleDelete}
+          onConfirm={handlingDelete}
           onClose={() => setDeleteTask(null)}
         />
       )}

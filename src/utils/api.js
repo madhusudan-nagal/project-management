@@ -1,12 +1,12 @@
-
-// Get a list from localStorage 
+// Getign a list from localStorage
 function read(name) {
   const saved = localStorage.getItem(name);
+  // console.log(saved);
   if (saved) return JSON.parse(saved);
- return [];
+  return [];
 }
 
-// Save a list into localStorage
+// Saving a list into localStorage
 function write(name, list) {
   localStorage.setItem(name, JSON.stringify(list));
 }
@@ -16,20 +16,20 @@ export async function getData(name) {
   return read(name);
 }
 
-// CREATE, UPDATE, DELETE
-
-
+// CREATE,UPDATE, DELETE
 export async function sendData(path, method, body) {
-  const [name, id] = path.split("/"); 
+  const [name, id] = path.split("/");
   let list = read(name);
 
   if (method === "POST") {
     const newItem = { ...body, id: crypto.randomUUID() };
-    list = [newItem, ...list]; 
+    list = [newItem, ...list];
   }
 
   if (method === "PATCH") {
-    list = list.map((item) => (String(item.id) === id ? { ...item, ...body } : item));
+    list = list.map((item) =>
+      String(item.id) === id ? { ...item, ...body } : item,
+    );
   }
 
   if (method === "DELETE") {
