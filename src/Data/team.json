@@ -1,0 +1,42 @@
+[
+  {
+    "id": "U001",
+    "name": "Aarav Sharma",
+    "email": "aarav@pm.com",
+    "role": "Project Manager",
+    "avatar": "https://i.pravatar.cc/150?u=U001",
+    "status": "Active"
+  },
+  {
+    "id": "U002",
+    "name": "Priya Patel",
+    "email": "priya@pm.com",
+    "role": "Frontend Developer",
+    "avatar": "https://i.pravatar.cc/150?u=U002",
+    "status": "Active"
+  },
+  {
+    "id": "U003",
+    "name": "Rahul Verma",
+    "email": "rahul@pm.com",
+    "role": "Backend Developer",
+    "avatar": "https://i.pravatar.cc/150?u=U003",
+    "status": "Active"
+  },
+  {
+    "id": "U004",
+    "name": "Sneha Iyer",
+    "email": "sneha@pm.com",
+    "role": "UI/UX Designer",
+    "avatar": "https://i.pravatar.cc/150?u=U004",
+    "status": "Active"
+  },
+  {
+    "id": "U005",
+    "name": "Daniel Brooks",
+    "email": "daniel@pm.com",
+    "role": "QA Engineer",
+    "avatar": "https://i.pravatar.cc/150?u=U005",
+    "status": "Inactive"
+  }
+]

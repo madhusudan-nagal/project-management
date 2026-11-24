@@ -1,0 +1,7 @@
+[
+  { "id": "U001", "email": "aarav@pm.com", "password": "admin123" },
+  { "id": "U002", "email": "priya@pm.com", "password": "priya123" },
+  { "id": "U003", "email": "rahul@pm.com", "password": "rahul123" },
+  { "id": "U004", "email": "sneha@pm.com", "password": "sneha123" },
+  { "id": "U005", "email": "daniel@pm.com", "password": "daniel123" }
+]

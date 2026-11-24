@@ -1,0 +1,52 @@
+[
+  {
+    "id": "P001",
+    "name": "CRM Development",
+    "description": "Development of a CRM platform for managing customer relationships",
+    "status": "Active",
+    "startDate": "2026-11-01",
+    "dueDate": "2026-12-15",
+    "assignedUserIds": ["U001", "U002", "U003"],
+    "createdAt": "2026-10-25"
+  },
+  {
+    "id": "P002",
+    "name": "Mobile Banking App",
+    "description": "Customer-facing mobile app for payments and account management",
+    "status": "Active",
+    "startDate": "2026-10-15",
+    "dueDate": "2027-01-20",
+    "assignedUserIds": ["U002", "U004"],
+    "createdAt": "2026-10-10"
+  },
+  {
+    "id": "P003",
+    "name": "Company Website Redesign",
+    "description": "Refresh of the company website with the new brand guidelines",
+    "status": "Completed",
+    "startDate": "2026-09-01",
+    "dueDate": "2026-10-31",
+    "assignedUserIds": ["U001", "U005"],
+    "createdAt": "2026-08-25"
+  },
+  {
+    "id": "P004",
+    "name": "Inventory Management System",
+    "description": "Internal tool for tracking stock levels across warehouses",
+    "status": "On Hold",
+    "startDate": "2026-11-10",
+    "dueDate": "2027-02-28",
+    "assignedUserIds": ["U003", "U004"],
+    "createdAt": "2026-11-05"
+  },
+  {
+    "id": "P005",
+    "name": "HR Portal",
+    "description": "Self-service portal for leave requests and employee records",
+    "status": "Active",
+    "startDate": "2026-11-15",
+    "dueDate": "2027-01-10",
+    "assignedUserIds": ["U001", "U002", "U003"],
+    "createdAt": "2026-11-12"
+  }
+]

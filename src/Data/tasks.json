@@ -1,0 +1,178 @@
+[
+    {
+        "id": "T001",
+        "title": "Implement Login UI",
+        "description": "Create the login interface with form validation",
+        "projectId": "P001",
+        "assignedUserId": "U002",
+        "priority": "High",
+        "status": "In Progress",
+        "createdAt": "2026-11-02",
+        "dueDate": "2026-11-25"
+    },
+    {
+        "id": "T002",
+        "title": "Design customer database schema",
+        "description": "Define tables and relationships for customer data",
+        "projectId": "P001",
+        "assignedUserId": "U003",
+        "priority": "High",
+        "status": "Completed",
+        "createdAt": "2026-11-03",
+        "dueDate": "2026-11-15"
+    },
+    {
+        "id": "T003",
+        "title": "Build contacts API",
+        "description": "Create endpoints for adding, editing and searching contacts",
+        "projectId": "P001",
+        "assignedUserId": "U003",
+        "priority": "Medium",
+        "status": "In Progress",
+        "createdAt": "2026-11-08",
+        "dueDate": "2026-11-20"
+    },
+    {
+        "id": "T004",
+        "title": "Sprint planning and requirements",
+        "description": "Agree scope and priorities for the first sprint",
+        "projectId": "P001",
+        "assignedUserId": "U001",
+        "priority": "Medium",
+        "status": "Completed",
+        "createdAt": "2026-11-01",
+        "dueDate": "2026-11-05"
+    },
+    {
+        "id": "T005",
+        "title": "Write unit tests for contacts module",
+        "description": "Cover the main contact operations with unit tests",
+        "projectId": "P001",
+        "assignedUserId": "U002",
+        "priority": "Low",
+        "status": "To Do",
+        "createdAt": "2026-11-10",
+        "dueDate": "2026-12-05"
+    },
+    {
+        "id": "T006",
+        "title": "Design onboarding screens",
+        "description": "Create the sign-up and welcome screens",
+        "projectId": "P002",
+        "assignedUserId": "U004",
+        "priority": "High",
+        "status": "Completed",
+        "createdAt": "2026-10-16",
+        "dueDate": "2026-10-30"
+    },
+    {
+        "id": "T007",
+        "title": "Implement biometric login",
+        "description": "Add fingerprint and face login options",
+        "projectId": "P002",
+        "assignedUserId": "U002",
+        "priority": "High",
+        "status": "To Do",
+        "createdAt": "2026-11-05",
+        "dueDate": "2026-11-22"
+    },
+    {
+        "id": "T008",
+        "title": "Transaction history UI",
+        "description": "Show past transactions with filters and search",
+        "projectId": "P002",
+        "assignedUserId": "U002",
+        "priority": "Medium",
+        "status": "In Progress",
+        "createdAt": "2026-11-12",
+        "dueDate": "2026-12-10"
+    },
+    {
+        "id": "T009",
+        "title": "Accessibility review",
+        "description": "Check colour contrast, labels and screen reader support",
+        "projectId": "P002",
+        "assignedUserId": "U004",
+        "priority": "Low",
+        "status": "To Do",
+        "createdAt": "2026-11-18",
+        "dueDate": "2026-12-18"
+    },
+    {
+        "id": "T010",
+        "title": "Content migration",
+        "description": "Move existing pages to the new website",
+        "projectId": "P003",
+        "assignedUserId": "U001",
+        "priority": "Medium",
+        "status": "Completed",
+        "createdAt": "2026-09-02",
+        "dueDate": "2026-09-30"
+    },
+    {
+        "id": "T011",
+        "title": "Cross-browser testing",
+        "description": "Test the new website in all major browsers",
+        "projectId": "P003",
+        "assignedUserId": "U005",
+        "priority": "High",
+        "status": "Completed",
+        "createdAt": "2026-09-20",
+        "dueDate": "2026-10-25"
+    },
+    {
+        "id": "T012",
+        "title": "Requirements gathering",
+        "description": "Interview warehouse staff about current processes",
+        "projectId": "P004",
+        "assignedUserId": "U003",
+        "priority": "Medium",
+        "status": "Completed",
+        "createdAt": "2026-11-06",
+        "dueDate": "2026-11-14"
+    },
+    {
+        "id": "T013",
+        "title": "Stock dashboard mockups",
+        "description": "Design screens for viewing stock levels",
+        "projectId": "P004",
+        "assignedUserId": "U004",
+        "priority": "Low",
+        "status": "To Do",
+        "createdAt": "2026-11-11",
+        "dueDate": "2026-12-20"
+    },
+    {
+        "id": "T014",
+        "title": "Leave request form",
+        "description": "Form for employees to request time off",
+        "projectId": "P005",
+        "assignedUserId": "U002",
+        "priority": "Medium",
+        "status": "To Do",
+        "createdAt": "2026-11-16",
+        "dueDate": "2026-12-08"
+    },
+    {
+        "id": "T015",
+        "title": "Employee records API",
+        "description": "Endpoints for creating and updating employee records",
+        "projectId": "P005",
+        "assignedUserId": "U003",
+        "priority": "High",
+        "status": "In Progress",
+        "createdAt": "2026-11-17",
+        "dueDate": "2026-12-01"
+    },
+    {
+        "id": "T016",
+        "title": "Define user roles and permissions",
+        "description": "Decide which roles can view and edit employee data",
+        "projectId": "P005",
+        "assignedUserId": "U001",
+        "priority": "High",
+        "status": "To Do",
+        "createdAt": "2026-11-15",
+        "dueDate": "2026-11-21"
+    }
+]
