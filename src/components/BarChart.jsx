@@ -10,7 +10,7 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-  const shortLabel = (text) =>
+const shortLabel = (text) =>
   text.length > 10 ? text.slice(0, 10) + "…" : text;
 
 export default function BarChart({ labels, values, colors }) {
@@ -22,6 +22,8 @@ export default function BarChart({ labels, values, colors }) {
   };
 
   const options = {
+    animation: false,
+
     maintainAspectRatio: false, // fill the container's height
     scales: {
       x: {

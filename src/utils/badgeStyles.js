@@ -7,7 +7,7 @@ export const statusStyle = (value) =>
   badge +
   ({
     Completed: "text-[#65ae95] bg-[#e7f8f2]",
-    "In Progress": "text-yellow-700 bg-[#ffc163]",
+    "In Progress": "text-yellow-700 bg-gray-100",
   }[value] || "text-blue-700 bg-blue-100");
 
 export const priorityStyle = (value) =>

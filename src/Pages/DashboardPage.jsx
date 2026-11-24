@@ -21,6 +21,8 @@ export default function DashboardPage() {
     getData("projects").then(setProjects);
   }, []);
 
+  console.log(projects);
+
   //projects
   const totalProjects = projects.length;
   const completedProjects = projects.filter(
@@ -44,9 +46,25 @@ export default function DashboardPage() {
   const nextDue = pendingTasks[0];
 
   const projectNames = projects.map((p) => p.name);
-  const projectProgress = projects.map((p) => p.progress);
 
-    return (
+  // progress for each project = % of its tasks that are completed
+  const projectProgress = projects.map((project) => {
+    const projectTasks = tasks.filter(
+      (t) => String(t.projectId) === String(project.id),
+    );
+
+    if (projectTasks.length === 0) return 0; // no tasks yet → 0%
+
+    const completed = projectTasks.filter(
+      (t) => t.status === "Completed",
+    ).length;
+
+    return Math.round((completed / projectTasks.length) * 100);
+  });
+
+  // console.log("projectProgress", projectProgress);
+
+  return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:h-full md:grid-rows-[auto_1fr] md:overflow-hidden">
       <Cards
         title="Total Projects"
@@ -82,7 +100,10 @@ export default function DashboardPage() {
         )}
       </Cards>
 
-      <Cards title="Project Progress" className="bg-white sm:col-span-2 min-h-0">
+      <Cards
+        title="Project Progress"
+        className="bg-white sm:col-span-2 min-h-0"
+      >
         <BarChart
           labels={projectNames}
           values={projectProgress}
@@ -90,7 +111,10 @@ export default function DashboardPage() {
         />
       </Cards>
 
-      <Cards title="Task Distribution" className="bg-white sm:col-span-2 md:col-span-1 min-h-0">
+      <Cards
+        title="Task Distribution"
+        className="bg-white sm:col-span-2 md:col-span-1 min-h-0"
+      >
         <PieChart
           labels={["Completed", "In Progress", "Planned"]}
           values={[completedTasks, inProgressTasks, plannedTasks]}
