@@ -3,6 +3,8 @@ import {
   IoFolder,
   IoFileTrayFull,
   IoLayers,
+  IoMoon,
+  IoSunny,
 } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router";
 
@@ -29,11 +31,23 @@ export default function MainLayout() {
   return (
     <div className="h-screen flex flex-col gap-2 p-3 sm:p-4 md:p-6 bg-gray-100 overflow-hidden">
       {/* Top navbar */}
-      <nav className="p-3 md:p-4 rounded-2xl bg-linear-to-r from-[#406ff3] to-[#7090ea]">
-        <h1 className="text-lg md:text-xl font-bold text-white">
-          <IoLayers className="inline-block mr-2 text-3xl md:text-4xl" />
-          Project Management
-        </h1>
+
+      <nav className="flex flex-row justify-between items-center p-3 md:p-4 rounded-2xl bg-linear-to-r from-blue-400 to-[#7090ea]">
+        <div>
+          <h1 className="text-lg md:text-xl font-bold text-white">
+            <IoLayers className="inline-block mr-2 text-3xl md:text-4xl" />
+            Project Management
+          </h1>
+        </div>
+
+        <div>
+          <label className="inline-flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" className="sr-only peer" />
+            <IoSunny className="text-slate-200 peer-checked:text-black peer-" />
+            <div className="relative w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-slate-800 transition-colors duration-700 after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300  after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></div>
+            <IoMoon className="text-slate-200 peer-checked:text-black" />
+          </label>
+        </div>
       </nav>
 
       {/* small screens: menu on top · 720px+: menu on the left */}

@@ -1,11 +1,22 @@
 import Cards from "../components/Cards";
 import PieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
-import { IoFolderSharp, IoClipboardSharp, IoTime } from "react-icons/io5";
+
+// import { useSelector } from "react-redux";
+// import { selectProjects } from "../store/projectSlice";
+
+import {
+  IoFolderSharp,
+  IoClipboardSharp,
+  IoTime,
+  IoCheckmarkCircle,
+  IoPieChart,
+  IoWarning,
+} from "react-icons/io5";
 import { getData } from "../utils/api";
 import { useState, useEffect } from "react";
 
-// date format ----  changes "2026-11-20" into "20 Nov"
+// date format ----  changes "2026-11-20" into "20 Nov
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -62,65 +73,137 @@ export default function DashboardPage() {
     return Math.round((completed / projectTasks.length) * 100);
   });
 
+  // const project = useSelector(selectProjects);
+  // console.log("Projects from Redux:", projects);
+
   // console.log("projectProgress", projectProgress);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:h-full md:grid-rows-[auto_1fr] md:overflow-hidden">
-      <Cards
-        title="Total Projects"
-        icon={<IoFolderSharp />}
-        description={`${inProgressProjects} in progress · ${completedProjects} completed`}
-        className="bg-linear-to-r text-white from-blue-500 to-blue-300"
-      >
-        <p className="text-3xl font-bold">{totalProjects}</p>
-      </Cards>
+    <div className="w-full min-h-screen p-4 md:p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 w-full">
+        <Cards
+          title="Projects"
+          icon={<IoFolderSharp />}
+          description={`${inProgressProjects} in progress · ${completedProjects} completed`}
+          className="h-full lg:col-span-3 bg-linear-to-r from-blue-600 to-blue-400 text-white"
+        >
+          <p className="text-3xl font-bold">{totalProjects}</p>
+        </Cards>
 
-      <Cards
-        title="Total Tasks"
-        icon={<IoClipboardSharp />}
-        description={`${inProgressTasks} in progress · ${completedTasks} completed`}
-        className="bg-linear-to-r text-white from-green-500 to-green-300"
-      >
-        <p className="text-3xl font-bold">{totalTasks}</p>
-      </Cards>
+        <Cards
+          title="Tasks"
+          icon={<IoClipboardSharp />}
+          description="Total across all projects"
+          className="h-full lg:col-span-3 bg-linear-to-r from-indigo-600 to-indigo-400 text-white"
+        >
+          <p className="text-3xl font-bold">{totalTasks}</p>
+        </Cards>
 
-      <Cards
-        title="Pending Tasks"
-        icon={<IoTime />}
-        className="sm:col-span-2 md:col-span-1 bg-linear-to-r text-white from-amber-500 to-yellow-400"
-      >
-        <p className="text-3xl font-bold">{pendingTasks.length}</p>
-        <p className="text-sm opacity-80">
-          {inProgressTasks} in progress · {plannedTasks} planned
-        </p>
-        {nextDue && (
-          <p className="text-sm opacity-80 truncate">
-            Next due: {nextDue.title} · {formatDate(nextDue.dueDate)}
+        <Cards
+          title="Completed"
+          icon={<IoCheckmarkCircle />}
+          description="Finished tasks"
+          className="h-full lg:col-span-3 bg-linear-to-r from-emerald-600 to-emerald-400 text-white"
+        >
+          <p className="text-3xl font-bold">{completedTasks}</p>
+        </Cards>
+
+        <Cards
+          title="Overall"
+          icon={<IoPieChart />}
+          description="Completion rate"
+          className="h-full lg:col-span-3 bg-linear-to-r from-violet-600 to-purple-400 text-white"
+        >
+          <p className="text-3xl font-bold">{}%</p>
+        </Cards>
+
+        {/* ================= ROW 2: Status Stat Cards ================= */}
+        <Cards
+          title="To Do"
+          icon=""
+          description="Not started yet"
+          className="h-full lg:col-span-3 bg-linear-to-r from-sky-600 to-cyan-400 text-white"
+        >
+          <p className="text-3xl font-bold">{plannedTasks}</p>
+        </Cards>
+
+        <Cards
+          title="In Prog."
+          icon=""
+          description="Currently active"
+          className="h-full lg:col-span-3 bg-linear-to-r from-amber-500 to-yellow-400 text-white"
+        >
+          <p className="text-3xl font-bold">{inProgressTasks}</p>
+        </Cards>
+
+        <Cards
+          title="Pending"
+          icon={<IoTime />}
+          description={
+            nextDue
+              ? `Next: ${nextDue.title} · ${formatDate(nextDue.dueDate)}`
+              : "Awaiting completion"
+          }
+          className="h-full lg:col-span-3 bg-linear-to-r from-orange-500 to-amber-400 text-white"
+        >
+          <p className="text-3xl font-bold">{pendingTasks.length}</p>
+        </Cards>
+
+        <Cards
+          title="Overdue"
+          icon={<IoWarning />}
+          description="Past due date"
+          className="h-full lg:col-span-3 bg-linear-to-r from-rose-600 to-red-400 text-white"
+        >
+          <p className="text-3xl font-bold flex items-center gap-2">
+            {} <span className="text-2xl">⚠️</span>
           </p>
-        )}
-      </Cards>
+        </Cards>
 
-      <Cards
-        title="Project Progress"
-        className="bg-white sm:col-span-2 min-h-0"
-      >
-        <BarChart
-          labels={projectNames}
-          values={projectProgress}
-          colors={["#facc15", "#4ade80", "#60a5fa"]}
-        />
-      </Cards>
+        {/* ================= ROW 3: Charts ================= */}
+        {/* Mobile & Tablet: Full width stacked | Desktop & 80% Zoom: 7 / 5 split */}
+        <Cards
+          title="Project-wise progress"
+          className="min-w-0 h-full sm:col-span-2 lg:col-span-7 bg-white min-h-75 "
+        >
+          <div className="w-full h-full min-w-0">
+            <BarChart
+              labels={projectNames}
+              values={projectProgress}
+              colors={["#facc15", "#4ade80", "#60a5fa"]}
+            />
+          </div>
+        </Cards>
 
-      <Cards
-        title="Task Distribution"
-        className="bg-white sm:col-span-2 md:col-span-1 min-h-0"
-      >
-        <PieChart
-          labels={["Completed", "In Progress", "Planned"]}
-          values={[completedTasks, inProgressTasks, plannedTasks]}
-          colors={["#65ae95", "#ffc163", "#60a5fa"]}
-        />
-      </Cards>
+        <Cards
+          title="Task status"
+          className="min-w-0 h-full sm:col-span-2 lg:col-span-5 bg-white min-h-75"
+        >
+          <div className="w-full h-full min-w-0">
+            <PieChart
+              labels={["Completed", "In Progress", "Planned"]}
+              values={[completedTasks, inProgressTasks, plannedTasks]}
+              colors={["#65ae95", "#ffc163", "#60a5fa"]}
+            />
+          </div>
+        </Cards>
+
+        {/* ================= ROW 4: Lists ================= */}
+        <Cards
+          title="My tasks"
+          description="Assigned to me"
+          className="min-w-0 h-full sm:col-span-2 lg:col-span-7 bg-white"
+        >
+          {/* Assigned tasks list */}
+        </Cards>
+
+        <Cards
+          title="Recent activity"
+          className="min-w-0 h-full sm:col-span-2 lg:col-span-5 bg-white"
+        >
+          {/* Activity feed */}
+        </Cards>
+      </div>
     </div>
   );
 }

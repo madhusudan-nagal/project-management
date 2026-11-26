@@ -1,7 +1,6 @@
-// Getign a list from localStorage
+// Getting a list from localStorage
 function read(name) {
   const saved = localStorage.getItem(name);
-  // console.log(saved);
   if (saved) return JSON.parse(saved);
   return [];
 }
